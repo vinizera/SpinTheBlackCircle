@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html style="background-color: beige;">
+<h2 style="font-family: consolas;">SPIN THE BLACK CIRCLE, THE GAME</h2>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>SPIN THE BLACK CIRCLE!</title>
+</head>
+<body>
+	<canvas width="1325"; height="700"></canvas>
+	<script type="text/javascript">
+		
+		// SETTING CANVAS
+		var screen = document.querySelector("canvas");
+		var brush = screen.getContext("2d");
+		brush.strokeRect(0, 0, 1325, 550);
+
+		var range = 30;
+
+		function clearPage() {
+			brush.fillStyle = "beige";
+			brush.fillRect(0, 0, 1325, 550);
+			brush.strokeRect(0, 0, 1325, 550);
+		}
+
+		function getCircle(x, y) {
+			brush.fillStyle = "black";
+			brush.beginPath();
+			brush.arc(x, y, range, 0, 2 * Math.PI);
+			brush.fill();
+		}
+
+		function randomX() {
+			x = Math.round(Math.random() * 1325);
+			if (x > 1200) {
+				x -= 30;
+			} else if (x < 30) {
+				x += 30;
+			}
+			return x
+		}
+
+		function randomY() {
+			y = Math.round(Math.random() * 550);
+			if (y > 500) {
+				y -= 30;
+			} else if (y < 30) {
+				y += 30;
+			}
+			return y
+		}
+
+		function movingCircle(event) {
+			clearPage();
+			moveX = randomX(); // DEFAULT randomX()
+			moveY = randomY(); // DEFAULT randomY()
+			getCircle(moveX, moveY);
+
+			var clickX = event.pageX;
+			var clickY = event.pageY;
+
+			if (clickX > moveX - range
+					&& clickX < moveX + range
+						&& clickY > moveY - range
+							&& clickY < moveY + range) {
+				alert("spin");
+				}
+		}
+
+		// BLOWING CIRCLE
+		
+		// MAIN
+
+		function main() {
+			screen.onclick = setInterval(movingCircle, 666);
+		}
+
+		// EXECUTE
+		main();
+		
+
+
+	</script>
+
+
+
+
+</body>
+</html>
